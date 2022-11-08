@@ -1,6 +1,7 @@
 import { GraphQLClient, gql } from "../index.js";
 import { 
   ContainerExecArgs, 
+  ContainerWithEntrypointArgs, 
   ContainerWithFsArgs, 
   ContainerWithMountedDirectoryArgs, 
   ContainerWithSecretVariableArgs, 
@@ -435,6 +436,18 @@ class Container extends BaseClient {
       ...this._queryTree,
       {
       operation: 'withEnvVariable',
+      args
+      }
+    ]
+
+    return new Container({queryTree: this._queryTree, port: this.port})
+  }
+
+  withEntrypoint(args: ContainerWithEntrypointArgs): Container {
+    this._queryTree = [
+      ...this._queryTree,
+      {
+      operation: 'withEntrypoint',
       args
       }
     ]
